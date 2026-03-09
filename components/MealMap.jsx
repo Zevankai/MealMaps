@@ -25,7 +25,7 @@ const save = async (d) => {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(d),
   });
-  if (!res.ok) throw new Error("Save failed");
+  if (!res.ok) throw new Error(`Save failed: ${res.status} ${res.statusText}`);
 };
 
 // ─── Helpers ───

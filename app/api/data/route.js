@@ -32,6 +32,17 @@ export async function GET() {
 export async function PUT(request) {
   try {
     const data = await request.json();
+    if (
+      typeof data !== "object" ||
+      data === null ||
+      !Array.isArray(data.meals) ||
+      typeof data.calendar !== "object" ||
+      !Array.isArray(data.groceryList) ||
+      typeof data.groceryChecked !== "object" ||
+      !Array.isArray(data.family)
+    ) {
+      return NextResponse.json({ ok: false, error: "Invalid data shape" }, { status: 400 });
+    }
     await put(BLOB_PATH, JSON.stringify(data), {
       access: "public",
       allowOverwrite: true,
